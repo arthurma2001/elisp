@@ -1,0 +1,18 @@
+(defun ama-qmake-rebuild-script (bname line)
+  (let (dname fname)
+    (setq fname (ama-file-fname line))
+    (setq dname (ama-file-dname line))
+    (insert "cd " dname "\n")
+    (insert "qmake " fname "\n")
+    (insert "cd " bname "\n")
+  ))
+;;(ama-qmake-rebuild-script "/tmp/xxx" "./src/src.pro")
+
+(defun ama-qmake-rebuild-script-file (fname bname)
+  (let (lines line)
+    (with-temp-buffer
+      (insert-file-contents fname)
+      (setq lines (ama-buffer2lines)))
+    (dolist (line lines)
+      (ama-qmake-rebuild-script bname line))))
+(ama-qmake-rebuild-script-file "/tmp/tmp.txt" "/home/test/packages/tmp/qwt-6.1.2/src")

@@ -1,0 +1,15 @@
+#ifndef __XtempClass_hpp__
+#define __XtempClass_hpp__
+
+#include "AbstractTest.H"
+
+class XtempClass : public AbstractTest
+{
+public:
+  XtempClass () { }
+  virtual ~XtempClass () { }
+
+  virtual bool test (int argc, char **argv);
+};
+
+#endif

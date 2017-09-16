@@ -1,0 +1,124 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(package-initialize)
+;; M-x package-list-packages
+
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(defun my:ac-c-header-init ()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers))
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+;;(delq 'ac-source-snippet ac-sources)
+;;(ac-source-features ac-source-functions ac-source-yasnippet
+;;                    ac-source-variables ac-source-symbols ac-source-abbrev
+;;                    ac-source-dictionary ac-source-words-in-same-mode-buffers)
+
+(defalias 'yas/get-snippet-tables 'yas--get-snippet-tables)
+(defalias 'yas/table-hash 'yas--table-hash)
+
+(setq warning-suppress-types nil)
+(setq load-path (cons "~/emacs" load-path))
+(setq ama-emacs-base-dir "~/emacs")
+(setq ama-emacs-site-dir (concat ama-emacs-base-dir "/myconfig/my-site-start.d"))
+(setq ama-emacs-data-dir (concat ama-emacs-base-dir "/data"))
+(setq load-path (cons ama-emacs-site-dir load-path))
+(mapc 'load (directory-files ama-emacs-site-dir t "\\.el$"))
+
+;;;----------------------automatic customize----------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(browse-url-netscape-program "mozilla")
+ '(emacs-wiki-charset-default "gb2312")
+ '(emacs-wiki-coding-default (quote gb2312))
+ '(send-mail-function (quote sendmail-send-it)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;(global-font-lock-mode 1)
+(setq visible-bell t)
+(put 'narrow-to-region 'disabled nil)
+(global-pabbrev-mode)
+
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (turn-on-auto-fill)
+             (auto-fill-mode 1)
+             ))
+(add-hook 'emacs-lisp-mode-hook
+          '(lambda ()
+             (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter
+             ))
+(require 'cl)
+(load "cl-extra")
+
+(defun ama-msf-abbrev-stuff ()
+  (setq msf-abbrev-mode-alias '((c++-mode . c-mode)))
+  ;; do not bug me about saving my abbreviations
+  (setq save-abbrevs nil)
+
+  ;; load up modes I use
+  ;;(require 'muse-mode)
+  ;;(require 'cc-mode)
+
+  ;; load up abbrevs for these modes
+  (require 'msf-abbrev)
+  (setq msf-abbrev-root ama-emacs-data-dir)
+  (msf-abbrev-load)
+
+  ;; use C-c a to define a new abbrev for this mode
+  (global-set-key (kbd "C-c a") 'msf-abbrev-define-new-abbrev-this-mode))
+
+;;(add-to-list 'Info-default-directory-list "~/info")
+(add-to-list 'load-path "~/emacs/git-emacs")
+(require 'git-emacs)
+
+(add-to-list 'load-path "~/emacs/xcscope")
+(require 'xcscope)
+(setq cscope-do-not-update-database t)
+;;(setq cscope-set-initial-directory "./") 
+
+;## (add-to-list 'load-path "/vd0/home/ama/emacs/bbdb")
+;## ;(load-file "/vd0/home/ama/emacs/bbdb/ama-setup.el")
+;## (require 'bbdb)
+;## ;(load-file "/vd0/home/ama/emacs/google/setup.el")
+;## 
+;## (bbdb-initialize 'gnus 'message) 
+;## (setq bbdb-north-american-phone-numbers-p nil)
+;## 
+;## ;(require 'bbdb) 
+;## ;(bbdb-initialize) 
+;## ;(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus) 
+;## ;(add-hook 'gnus-startup-hook 'bbdb-insinuate-message) 
+;## ;(add-hook 'message-setup-hook 'bbdb-define-all-aliases) 
+;## ;(sams-bind-alias-tabs-in-gnus)
+
+;;(menu-bar-mode -1)
+;;(tool-bar-mode -1)
+
+;;(add-to-list 'load-path "~/packages/jdee-2.4.1/lisp")
+;;(load "jde")
+
+;(add-to-list 'load-path
+;             "~/emacs/yasnippet-master")
+;(require 'yasnippet)
+;(yas-global-mode 1)
+
+;;(global-hl-line-mode)
+(show-paren-mode)
+(blink-cursor-mode -1)
+(set-cursor-color "#ffffff")

@@ -1,0 +1,22 @@
+#ifndef __XtempClass_hpp__
+#define __XtempClass_hpp__
+namespace oge {
+  class XtempClassImp;
+  
+  class XtempClass
+  {
+  public:
+    XtempClass ();
+    virtual ~XtempClass ();
+  
+  private:
+    XtempClass (const XtempClass &x);
+    XtempClass & operator=(const XtempClass &x);
+  
+  private:
+    friend class XtempClassImp;
+    XtempClassImp *myImp;
+  };
+}
+
+#endif

@@ -1,0 +1,6 @@
+(setq kill-ring-max 100)
+(setq x-select-enable-clipboard t)
+(setq select-active-regions t)
+(setq save-interprogram-paste-before-kill 1)
+(setq yank-pop-change-selection t) 
+(setq x-select-enable-clipboard nil)

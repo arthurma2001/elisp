@@ -1,0 +1,16 @@
+#ifndef __tempDialog_hpp__
+#define __tempDialog_hpp__
+
+class tempDialogImp;
+class tempDialog
+{
+public:
+  tempDialog ();
+  virtual ~tempDialog ();
+
+private:
+  friend class tempDialogImp;
+  tempDialogImp *myImp;
+};
+
+#endif

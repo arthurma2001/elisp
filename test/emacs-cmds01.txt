@@ -1,0 +1,6 @@
+1. Edit Html/XML
+  sgml-skip-tag-forward
+  sgml-skip-tag-backward
+  browse-url-of-buffer
+  alt-x nxml-mode
+  

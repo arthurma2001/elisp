@@ -1,0 +1,85 @@
+(defun ama-string-find (c-name pat)
+  (string-match pat c-name))
+;;(ama-string-find "FileUtils.C" "\\.C")
+
+(defun ama-string-replace (c-name spat tpat)
+  (when c-name 
+    (replace-regexp-in-string spat tpat c-name)))
+;;(ama-string-replace "FileUtils.C" "\\.C" ".o")
+;;(ama-string-replace nil "\\.C" ".o")
+
+(defun ama-string-parse-equal-express (line)
+  (let (line1 alst)
+    (setq line1 (ama-string-replace line "=" " "))
+    (setq alst (split-string line1))
+  ))
+;;(ama-string-parse-equal-express "x=\"0.000000\"")
+
+(defun ama-string-multiple-replace (c-name pats)
+  (let (spat tpat)
+    (dolist (pat pats)
+      (setq spat (car pat))
+      (setq tpat (car (cdr pat)))
+      (when (ama-string-find c-name spat)
+        (setq c-name (replace-regexp-in-string spat tpat c-name))))
+    c-name))
+;;(ama-string-multiple-replace "FileUtils.C" (list (list "\\.C" ".o")))
+
+(defun ama-strings-combines (slst sep)
+  (let ((ostr "")
+        (i 0)
+        (n (length slst)))
+    (dolist (s slst ostr)
+      (if (< i (- n 1))
+          (setq ostr (concat ostr s sep))
+        (setq ostr (concat ostr s)))
+      (setq i (1+ i)))
+    ostr))
+
+(defun ama-string-trim (str)
+  "Chomp leading and tailing whitespace from STR."
+  (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'"
+                       str)
+    (setq str (replace-match "" t t str)))
+  str)
+;;(ama-string-trim "double bgds_scale ")
+
+(defun ama-string-empty (s)
+  (let (tmp_s)
+    (setq tmp_s (ama-string-trim s))
+    (= (length tmp_s) 0)))
+;;(ama-string-empty "  ")
+
+(defun ama-string-ends-with (s ending)
+  "Return non-nil if string S ends with ENDING."
+  (cond ((>= (length s) (length ending))
+         (let ((elength (length ending)))
+           (string= (substring s (- 0 elength)) ending)))
+        (t nil)))
+;;(ama-string-ends-with "xxx --" "-x")
+
+(defun ama-string/starts-with (s begins)
+  "Return non-nil if string S starts with BEGINS."
+  (cond ((>= (length s) (length begins))
+         (string-equal (substring s 0 (length begins)) begins))
+        (t nil)))
+;;(ama-string/starts-with "xxx is " "xx")
+
+(defun ama-string-from-list (xlst d)
+  (let (out x)
+    (dolist (x xlst)
+      (setq out (concat out (number-to-string x) d))
+      )
+    out))
+;;(ama-string-from-list (list 3 4 5 8) " ")
+
+(defun ama-string-to-numbers (str0)
+  (let (xlst olst x val)
+    (setq xlst (split-string str0))
+    (dolist (x xlst)
+      (setq val (string-to-number x))
+      (setq olst (append olst (list val)))
+      )
+    olst))
+;;(ama-string-to-numbers " 3 4 5 8 ")
+

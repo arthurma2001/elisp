@@ -1,0 +1,17 @@
+#ifndef __XtempClass_hpp__
+#define __XtempClass_hpp__
+
+class XtempClassImp;
+
+class XtempClass
+{
+public:
+  XtempClass ();
+  virtual ~XtempClass ();
+
+private:
+  friend class XtempClassImp;
+  XtempClassImp *myImp;
+};
+
+#endif

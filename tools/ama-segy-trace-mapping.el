@@ -1,0 +1,28 @@
+(setq off 0)
+(defun ama-process-one-line (line)
+  (let (alst blst name txt)
+    (message "line = %S" line)
+    (setq alst (split-string line ";"))
+    (setq blst (split-string (car alst)))
+    (setq name (car (last blst)))
+    (if (string-match "int" line)
+        (progn
+          (setq txt (format "{ %S, FMT_INT_4, %d }," name off))
+          (setq off (+ off 4)))
+      (if (string-match "short" line)
+          (progn
+            (setq txt (format "{ %S, FMT_INT_2, %d }," name off))
+            (setq off (+ off 2)))))
+    (insert "\n")
+    (insert txt)
+  ))
+;;(ama-process-one-line "int gelev;	/* receiver group elevation from sea level")
+
+(defun ama-segy-trace-mapping (pos1 pos2)
+  (interactive "r")
+  (setq off 0)
+  (let (lines line alst alst2 txt)
+    (setq lines (ama-region-lines pos1 pos2))
+    (dolist (line lines)
+      (ama-process-one-line line))))
+   

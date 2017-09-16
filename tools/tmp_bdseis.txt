@@ -1,0 +1,21 @@
+FILESUM --- apply add on multi .bgtd files which with difference sizes and coverage
+ ---------------------------
+ Usage:
+ bsfilesum infile=  lsfile= outfile=
+
+ Required Parameter:
+ infile=     file names for input datasets
+ lsfile=     file names get by system (ls lsfile)
+ outfile=    file name  for output dataset
+
+ Optional Parameter:
+ verbose=0   flag to show run information: 0 min, 3 max
+ maxclip=    the max clip value
+ minclip=    the min clip value
+ reffile=    reference file to limit stack aperture
+ fx=         user defined stack result x range minx
+ fy=         user defined stack result y range miny
+ fz=         user defined stack result z range minz
+ ex=         user defined stack result x range maxx
+ ey=         user defined stack result y range maxy
+ ez=         user defined stack result z range maxz

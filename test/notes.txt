@@ -1,0 +1,2 @@
+http://ergoemacs.org/emacs/elisp.html
+iielm --> lisp console

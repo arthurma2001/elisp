@@ -1,0 +1,11 @@
+#ifndef __XtempClass_hpp__
+#define __XtempClass_hpp__
+
+class XtempClass
+{
+public:
+  XtempClass ();
+  virtual ~XtempClass ();
+};
+
+#endif

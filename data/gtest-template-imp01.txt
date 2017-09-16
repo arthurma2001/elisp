@@ -1,0 +1,13 @@
+#include <iostream>
+#include "XtempClass.H"
+using namespace std;
+
+static void test001 ()
+{
+}
+
+bool XtempClass::test (int argc, char **argv)
+{
+  test001 ();
+  return true;
+}

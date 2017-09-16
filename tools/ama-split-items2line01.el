@@ -1,0 +1,33 @@
+(defun ama-private-do-split-items2line (pos1 pos2 func)
+  (let (lines alst1 a b olst)
+    (setq olst nil)
+    (setq lines (ama-region-lines pos1 pos2))
+    (dolist (line lines)
+      (setq alst1 (ama-line-split line nil))
+      (setq olst (append olst alst1)))
+    (kill-region pos1 pos2)
+    (dolist (a olst)
+      (setq b (apply func (list a)))
+      (insert b "\n"))))
+
+(defun ama-split-items2line-c (pos1 pos2)
+  (interactive "r")
+  (ama-private-do-split-items2line pos1 pos2 #'(lambda(x) x)))
+
+(defun ama-private-filename-c2o (c-name)
+  (replace-regexp-in-string "\\.C" ".o" c-name))
+;;(ama-private-filename-c2o "FileUtils.C")
+
+(defun ama-split-items2line-o (pos1 pos2)
+  (interactive "r")
+  (ama-private-do-split-items2line pos1 pos2 #'ama-private-filename-c2o))
+
+(defun ama-private-filename-diff (c-name)
+  (let (sdir tdir)
+    (setq sdir "/home/ama/data/rtm3d/rtm-test.orig/")
+    (setq tdir "/home/ama/data/rtm3d/tmp/")
+    (concat "diff " sdir c-name " " tdir c-name)))
+
+(defun ama-split-items2line-diff (pos1 pos2)
+  (interactive "r")
+  (ama-private-do-split-items2line pos1 pos2 #'ama-private-filename-diff))

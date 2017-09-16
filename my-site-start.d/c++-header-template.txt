@@ -1,0 +1,16 @@
+#ifndef __XXX_H__
+#ifndef __XXX_H__
+
+class XXXImp;
+class XXX
+{
+public:
+  XXX ();
+  ~XXX ();
+
+private:
+  friend class XXXImp;
+  XXXImp *myImp;
+};
+
+#endif

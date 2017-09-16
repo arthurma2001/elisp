@@ -1,0 +1,48 @@
+#include <string.h>
+#include "XtempClass.H"
+
+class XtempClassImp
+{
+public:
+  XtempClassImp (XtempClass *ins);
+  virtual ~XtempClassImp ();
+
+  void init0 ();
+  void clear ();
+  
+public:
+  XtempClass *myIns;
+};
+
+XtempClass::XtempClass ()
+{
+  myImp = new XtempClassImp (this);
+}
+
+XtempClass::~XtempClass ()
+{
+  delete myImp;
+}
+
+/**
+ * Helper
+ */
+XtempClassImp::XtempClassImp (XtempClass *ins)
+{
+  myIns = ins;
+  init0 ();
+}
+
+XtempClassImp::~XtempClassImp ()
+{
+  clear ();
+}
+
+void XtempClassImp::init0 ()
+{
+}
+
+void XtempClassImp::clear ()
+{
+}
+

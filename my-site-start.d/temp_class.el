@@ -1,0 +1,17 @@
+(defun make-c++-temp-class (name)
+  (let (txt)
+  (with-temp-buffer
+    (insert-file "/home/ama/emacs/myconfig/my-site-start.d/temp_class.txt")
+    (replace-string "tempDialog" name)
+    (setq txt (buffer-substring-no-properties (point-min) (point-max)))
+    )
+  txt))
+
+(defun ama-c++-header-create ()
+  (interactive)
+  (let (xxx alst name)
+    (setq xxx (buffer-name))
+    (setq alst (split-string xxx "\\."))
+    (setq name (car alst))
+    (setq xxx (make-c++-temp-class name))
+    (insert-string xxx)))
