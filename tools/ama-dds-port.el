@@ -13,6 +13,7 @@
 (load "ama-diff.el")
 (load "ama-xmls.el")
 (load "ama-find-file.el")
+(load "ama-svn01.el")
 
 (defun ama-dds-funcs-list (fname)
   (let (flst f olst)

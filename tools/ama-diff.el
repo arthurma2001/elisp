@@ -38,3 +38,37 @@
       (setq out (- v1 v2)))
     out))
 ;;(ama-number-diff "33.45 33.8")
+
+;;(ama-diff-file-make-copy "/home/ama/workspace/src/ImageProject" "/home/ama/tmp2.txt" "aaaa.txt")
+
+;tmp/wang01.C ../../../../svn/lib/Base/wag01.C
+(defun ama-diff-line-filename (line)
+  (let (sep alst full-path fname)
+    (setq sep " ")
+    (setq alst (split-string line sep))
+    (if (> (length alst) 2)
+        (setq fname (file-name-nondirectory (nth 2 alst)))
+      (setq fname nil))
+    fname
+    ))
+
+(defun testParseDiffLine()
+  (let (line fname)
+     ;tmp/wang01.C ../../../../svn/lib/Base/wag01.C
+    (setq line "diff -urN tmp/wang01.C ../../../../svn/lib/Base/wag01.C")
+    (setq fname (ama-diff-line-filename line))
+   ;; (message "%S" fname)
+    ))
+;;(testParseDiffLine)
+
+;;diff -urN Base/Wang01.C ../../../../svn/lib/Base/Wang01.C
+;;diff -urN Base/Wang01.H ../../../../svn/lib/Base/Wang01.H
+(defun ama-diff-filelist (fname)
+  (let (lines line flist)
+    (setq lines (ama-file2lines fname))
+    (dolist (line lines)
+      (setq fname (ama-diff-line-filename line))
+      (setq flist (append flist (list fname)))
+      )
+    flist))
+;;(ama-diff-filelist "/home/ama/workspace/port2thunder/src/ImageProject/src/BasicLib/base_list01.txt")

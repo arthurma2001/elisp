@@ -1,3 +1,13 @@
+defun ama-dir-list (d1 pat)
+  (let (x alst blst olst)
+    (setq alst (directory-files d1))
+    (dolist (x alst)
+      (when (ama-string-find x pat)
+        (setq olst (append olst (list x)))
+        ))
+    olst))
+;;(ama-dir-list "/scratch/ama/workspace/src/ImageProject/SoOD" "\\.h")
+
 (defun ama-process-one-file (in-dir fname out-dir)
   (let (ifname ofname)
     (setq ifname (concat in-dir "/" fname))

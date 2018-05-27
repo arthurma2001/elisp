@@ -83,3 +83,8 @@
     olst))
 ;;(ama-string-to-numbers " 3 4 5 8 ")
 
+(defun ama-string-to-list (str0)
+  (let (xlst olst x val)
+    (setq xlst (split-string str0))
+    xlst))
+;;(ama-string-to-list " 3 4 5 8 ")

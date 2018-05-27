@@ -98,5 +98,73 @@
       (kill-buffer buf)
     )))
 
+;;####
+(defun ama-format-cmap-line (nth r g b)
+  (let (out-str)
+    (setq out-str (format "%d %s %s %s" nth r g b))))
+
+(defun ama-process-cmap-line (nth-color line)
+  (let (alst)
+    (setq alst (split-string line ","))
+    (when (>= (length alst) 3)
+      (ama-format-cmap-line nth-color (nth 0 alst) (nth 1 alst) (nth 2 alst)))
+    ))
+;;(ama-process-cmap-line 12 "120,0,133")
 
 
+(defun ama-csv-colormap-region (pos1 pos2 ofname)
+  (interactive "r\nMoutput:")
+  (let (lines line buf nth-color txt)
+    (setq lines (ama-region-lines pos1 pos2))
+    (message "%S" lines)
+    
+    (setq nth-color 0)
+    (setq buf (get-buffer-create ofname))
+    
+    (save-excursion
+      (with-current-buffer buf
+        (erase-buffer)
+        (insert "# index red green blue" "\n")
+        (dolist (line lines)
+          (when (not (string-match-p "#" line))
+            (setq txt (ama-process-cmap-line nth-color line))
+            (insert "  " txt "\n")
+            (setq nth-color (1+ nth-color)))
+          )))
+      ))
+;;(defun ama-csv-colormap-region (pos1 pos2 ofname)
+;; (string-match-p "#" "# xxxx")(defun ama-format-cmap-line (nth r g b)
+  (let (out-str)
+    (setq out-str (format "%d %s %s %s" nth r g b))))
+
+(defun ama-process-cmap-line (nth-color line)
+  (let (alst)
+    (setq alst (split-string line ","))
+    (when (>= (length alst) 3)
+      (ama-format-cmap-line nth-color (nth 0 alst) (nth 1 alst) (nth 2 alst)))
+    ))
+;;(ama-process-cmap-line 12 "120,0,133")
+
+
+(defun ama-csv-colormap-region (pos1 pos2 ofname)
+  (interactive "r\nMoutput:")
+  (let (lines line buf nth-color txt)
+    (setq lines (ama-region-lines pos1 pos2))
+    (message "%S" lines)
+    
+    (setq nth-color 0)
+    (setq buf (get-buffer-create ofname))
+    
+    (save-excursion
+      (with-current-buffer buf
+        (erase-buffer)
+        (insert "# index red green blue" "\n")
+        (dolist (line lines)
+          (when (not (string-match-p "#" line))
+            (setq txt (ama-process-cmap-line nth-color line))
+            (insert "  " txt "\n")
+            (setq nth-color (1+ nth-color)))
+          )))
+      ))
+;;(defun ama-csv-colormap-region (pos1 pos2 ofname)
+;; (string-match-p "#" "# xxxx")
